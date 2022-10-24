@@ -48,9 +48,9 @@ namespace MarsCompetition.Pages
         {
             shareSkillObj = new ShareSkill();
             btnShareSkill.Click();
-            wait(2);
+            Thread.Sleep(3000);
             shareSkillObj.EnterShareSkill(rowNumber, worksheet);
-            wait(3);
+            Thread.Sleep(3000);
         }
 
         //Edit listing
@@ -59,7 +59,7 @@ namespace MarsCompetition.Pages
             //ShareSkill shareSkillObj = new ShareSkill();
             //Click on ManageListing
             GoToManageListings();
-            wait(2);
+            Thread.Sleep(3000);
             //Populate the Excel Sheet
             ExcelLib.PopulateInCollection(Base.ExcelPath, worksheet);
 
@@ -75,7 +75,7 @@ namespace MarsCompetition.Pages
             shareSkillObj.ClearData();
            
             shareSkillObj.EnterShareSkill(rowNumber2, worksheet);
-            wait(3);
+            Thread.Sleep(3000);
         }
 
         //Verify add & edit
@@ -84,7 +84,7 @@ namespace MarsCompetition.Pages
 
             //Click on ManageListing
             GoToManageListings();
-            wait(2);
+            Thread.Sleep(3000);
 
             //Read data
             ExcelLib.PopulateInCollection(Base.ExcelPath, worksheet);
@@ -95,7 +95,7 @@ namespace MarsCompetition.Pages
             IWebElement btnView = driver.FindElement(By.XPath(e_View));
             btnView.Click();
 
-            wait(2);
+            Thread.Sleep(3000);
         }
 
         //Delete listing
@@ -121,9 +121,7 @@ namespace MarsCompetition.Pages
             {
                 clickActionsButton[1].Click();
 
-                //Verify message
-                //WaitForElement(driver, By.XPath(e_message), 3);
-                //messageContent = message.Text;
+            
             }
             else
             {
@@ -136,9 +134,6 @@ namespace MarsCompetition.Pages
         //Verify delete
         internal string FindTitle(string title)
         {
-
-            //Verify delete message
-            //Assert.AreEqual(messageContent, title + " has been deleted");
 
             //Verify if there is no listing
             string actualTitle = "null";
@@ -158,7 +153,7 @@ namespace MarsCompetition.Pages
                 }
                 return actualTitle;
             }
-            wait(2);
+            Thread.Sleep(3000);
         }
 
         internal void CreateMultipleShareSkill(string worksheet)
@@ -169,7 +164,7 @@ namespace MarsCompetition.Pages
             
             //Click on button Share Skill
             btnShareSkill.Click();
-            wait(1);
+            Thread.Sleep(3000);
 
             int rowNumber = 2;
             string title = ExcelLib.ReadData(rowNumber, "Title");
@@ -183,20 +178,8 @@ namespace MarsCompetition.Pages
                 title = ExcelLib.ReadData(rowNumber, "Title");
 
                 btnShareSkill.Click();
-                wait(2);
+                Thread.Sleep(3000);
             }
-        }
-
-        internal void EnterShareSkill_Invalid(int testData, string worksheet)
-        {
-            shareSkillObj = new ShareSkill();
-            //Click on button ShareSkill
-            btnShareSkill.Click();
-            wait(1);
-
-            //Enter invalid data
-            shareSkillObj.EnterShareSkill_InvalidData(testData, "NegativeTC");
-            Thread.Sleep(2000);
         }
 
         //Functions to check title is existing and return title's position in manage listing

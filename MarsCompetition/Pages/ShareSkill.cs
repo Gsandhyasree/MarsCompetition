@@ -320,18 +320,7 @@ namespace MarsCompetition.Pages
             }
         }
 
-        //Upload Work samples
-       /* internal void UploadWorkSamples()
-        {
-            btnWorkSamples.Click();
-            wait(3);
-
-            //Run AutoIT-script to execute file uploading
-            using (Process exeProcess = Process.Start(Base.AutoScriptPath))
-            {
-                exeProcess.WaitForExit();
-            }
-        }*/
+        
 
         //Click Active or Hidden
         internal void ClickActiveOption(string ActiveOptionText)
@@ -354,15 +343,11 @@ namespace MarsCompetition.Pages
         {
             //Clear title
             Title.Clear();
-            //Title.Click();
-            //Title.SendKeys(Keys.Control + "A");
-           // Title.SendKeys(Keys.Delete);
+        
 
             //Clear description
             Description.Clear();
-           // Description.Click();
-          //  Description.SendKeys(Keys.Control + "A");
-          //  Description.SendKeys(Keys.Delete);
+         
 
             //Clear tags
             int countTags = displayedTags.Count();
@@ -396,7 +381,7 @@ namespace MarsCompetition.Pages
                     EndTime[i].SendKeys(Keys.Delete);
                 }
             }
-            wait(1);
+            Thread.Sleep(3000);
 
             //Clear skill trade
             for (int i = 0; i < radioSkillTrade.Count; i++)
@@ -421,89 +406,6 @@ namespace MarsCompetition.Pages
             }
 
         }
-
-        //Negative test
-        internal void EnterShareSkill_InvalidData(int testData, string worksheet)
-        {
-            ShareSkill shareSkillObj = new ShareSkill();
-            Listing test = new Listing();
-            shareSkillObj.GetExcel(testData, worksheet, out test);
-
-            //Assert no data
-            if (test.isClickSaveFirst == "Yes")
-            {
-                Save.Click();
-            }
-            //Assert invalid data
-            else if (test.isClickSaveFirst == "No")
-            {
-                //Enter invalid data, depending on excel
-                EnterDataOnConditions(test.title, test.description, test.tags, test.startDate, test.endDate,
-                    test.skillTrade, test.skillExchange, test.credit, test.category, test.subcategory);
-
-                //Click Save button
-                Save.Click();
-            }
-        }
-
-        #region Sub-methods for EnterShareSkill_InvalidData
-        internal void EnterDataOnConditions(string titleText, string descriptionText, string tagsText,
-            string startDateText, string endDateText, string skillTradeText, string skillExchangeText,
-            string creditAmountText, string categoryText, string subCategoryText)
-        {
-            //Enter title
-            if (titleText != "Ignore")
-            {
-                Title.SendKeys(titleText);
-            }
-
-            //Enter Description
-            if (descriptionText != "Ignore")
-            {
-                Description.SendKeys(descriptionText);
-            }
-
-            //Select category 
-            var selectCategory = new SelectElement(CategoryDropDown);
-            if (categoryText != "Ignore")
-            {
-                selectCategory.SelectByText(categoryText);
-            }
-
-            if (subCategoryText == "Ignore")
-            {
-                //Select Subcategory
-                var selectSubcategory = new SelectElement(SubCategoryDropDown);
-                selectSubcategory.SelectByText(subCategoryText);
-            }
-
-            //Enter tags
-            if (tagsText != "Ignore")
-            {
-                Tags.Click();
-                Tags.SendKeys(tagsText);
-                Tags.SendKeys(Keys.Return);
-            }
-
-            //Enter Start date
-            if (startDateText != "Ignore")
-            {
-                StartDateDropDown.SendKeys(startDateText);
-            }
-
-            //Enter End date
-            if (endDateText != "Ignore")
-            {
-                EndDateDropDown.SendKeys(endDateText);
-            }
-
-            //Select "Skill Trade" options
-            if (skillTradeText != "Ignore")
-            {
-                SelectSkillTrade(skillTradeText, skillExchangeText, creditAmountText);
-            }
-        }
-        #endregion
 
         #region struct and sub-methods for assertions
         internal struct Listing
